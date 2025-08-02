@@ -24,12 +24,13 @@ import { ref, computed } from 'vue'
 import DnevniRed from './DnevniRed.vue'
 import PrijavaZaRec from './PrijavaZaRec.vue'
 import ListaPrijavljenih from './ListaPrijavljenih.vue'
-
+import SalaRaspored from './SalaRaspored.vue'
 // Definiši tabove i njihove komponente
 const tabs = [
   { label: 'Dnevni red', value: 'dnevniRed', component: DnevniRed },
   { label: 'Prijava za reč', value: 'prijavaZaRec', component: PrijavaZaRec },
-  { label: 'Lista prijavljenih', value: 'listaPrijavljenih', component: ListaPrijavljenih }
+  { label: 'Lista prijavljenih', value: 'listaPrijavljenih', component: ListaPrijavljenih }, // ← zarez!
+  { label: 'Prikaz sale', value: 'salaRaspored', component: SalaRaspored }
 ]
 const selectedTab = ref('dnevniRed')
 
