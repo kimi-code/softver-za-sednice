@@ -32,7 +32,7 @@
 import { ref } from 'vue'
 // Importuj sve sekcije kao komponente
 import Welcome from '@/components/Welcome.vue'
-import DnevniRed from '@/components/DnevniRed.vue'
+import PanelSednice from '@/components/PanelSednice.vue'
 import Govornici from '@/components/Govornici.vue'
 import Glasanje from '@/components/Glasanje.vue'
 import Prisutni from '@/components/Prisutni.vue'
@@ -40,7 +40,7 @@ import Dokumenti from '@/components/Dokumenti.vue'
 
 const menu = [
   { icon: '🏛️', label: 'Početna', section: 'pocetna' },
-  { icon: '📋', label: 'Dnevni red', section: 'dnevniRed' },
+  { icon: '🗂️', label: 'Panel sednice', section: 'panelSednice' },
   { icon: '🗣️', label: 'Lista govornika', section: 'govornici' },
   { icon: '🗳️', label: 'Glasanje', section: 'glasanje' },
   { icon: '🧑‍💼', label: 'Prisutni', section: 'prisutni' },
@@ -50,7 +50,7 @@ const activeSection = ref('pocetna')
 
 const sectionComponents = {
   pocetna: Welcome,
-  dnevniRed: DnevniRed,
+  panelSednice: PanelSednice,
   govornici: Govornici,
   glasanje: Glasanje,
   prisutni: Prisutni,
