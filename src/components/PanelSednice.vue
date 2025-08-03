@@ -20,18 +20,21 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue' // OVO DODAJ!
 import DnevniRed from './DnevniRed.vue'
 import PrijavaZaRec from './PrijavaZaRec.vue'
 import ListaPrijavljenih from './ListaPrijavljenih.vue'
 import SalaRaspored from './SalaRaspored.vue'
-// Definiši tabove i njihove komponente
+import OdbornikKlijent from './OdbornikKlijent.vue' // ← OVO JE OK!
+
 const tabs = [
   { label: 'Dnevni red', value: 'dnevniRed', component: DnevniRed },
   { label: 'Prijava za reč', value: 'prijavaZaRec', component: PrijavaZaRec },
-  { label: 'Lista prijavljenih', value: 'listaPrijavljenih', component: ListaPrijavljenih }, // ← zarez!
-  { label: 'Prikaz sale', value: 'salaRaspored', component: SalaRaspored }
+  { label: 'Lista prijavljenih', value: 'listaPrijavljenih', component: ListaPrijavljenih },
+  { label: 'Prikaz sale', value: 'salaRaspored', component: SalaRaspored },
+  { label: 'Odbornik klijent', value: 'odbornikKlijent', component: OdbornikKlijent } // OVO JE POSLEDNJI, BEZ ZAREZA!
 ]
+
 const selectedTab = ref('dnevniRed')
 
 // Dinamički prikaz izabrane komponente
