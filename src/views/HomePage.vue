@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-bg">
+  <div v-if="isLoggedIn" class="dashboard-bg">
     <div class="dashboard-shell">
       <!-- LEVI MENI -->
       <aside class="dashboard-sidebar">
@@ -19,6 +19,13 @@
             <span>{{ item.label }}</span>
           </li>
         </ul>
+        <ion-button
+          expand="block"
+          color="danger"
+          @click="logout"
+          style="margin: 16px;">
+          Odjavi se
+        </ion-button>
       </aside>
       <!-- CENTRALNA “PLOČA” -->
       <main class="dashboard-board">
@@ -29,14 +36,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-// Importuj sve sekcije kao komponente
+import { ref, watchEffect } from 'vue'
+import { useRouter } from 'vue-router'
+import { isLoggedIn } from '@/stores/authStore'
 import Welcome from '@/components/Welcome.vue'
 import PanelSednice from '@/components/PanelSednice.vue'
 import Govornici from '@/components/Govornici.vue'
 import Glasanje from '@/components/Glasanje.vue'
 import Prisutni from '@/components/Prisutni.vue'
 import Dokumenti from '@/components/Dokumenti.vue'
+
+const router = useRouter()
+
+// Kada korisnik NIJE ulogovan — automatski redirect na login
+watchEffect(() => {
+  if (!isLoggedIn.value) {
+    router.push('/')
+  }
+})
 
 const menu = [
   { icon: '🏛️', label: 'Početna', section: 'pocetna' },
@@ -55,6 +72,11 @@ const sectionComponents = {
   glasanje: Glasanje,
   prisutni: Prisutni,
   dokumenti: Dokumenti
+}
+
+const logout = () => {
+  localStorage.removeItem('odbornik_token')
+  isLoggedIn.value = false
 }
 </script>
 

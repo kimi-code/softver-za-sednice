@@ -52,13 +52,17 @@
 </template>
 
 <script setup>
-import { ref, watch, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted, computed } from 'vue'
+import axios from 'axios'
 
 const tipRec = ref('poslovnik')
 const prijavljen = ref(false)
 const odobreno = ref(false)
 const vreme = ref(120)
 const istekloVreme = ref(false)
+
+const info = JSON.parse(localStorage.getItem('odbornik_info') || '{}')
+const punoIme = computed(() => (info.ime && info.prezime) ? `${info.ime} ${info.prezime}` : '')
 
 function prikazTipa() {
   if (tipRec.value === 'poslovnik') return 'Reč po poslovniku'
@@ -68,21 +72,31 @@ function prikazTipa() {
   return ''
 }
 
-function posaljiPrijavu() {
+async function posaljiPrijavu() {
   prijavljen.value = true
   istekloVreme.value = false
+  try {
+    await axios.post('http://localhost:8000/api/prijavi-se', {
+      tip: tipRec.value,
+      ime: punoIme.value
+    })
+  } catch (e) { }
 }
 
-function povuciPrijavu() {
+async function povuciPrijavu() {
   prijavljen.value = false
   odobreno.value = false
   vreme.value = 120
+  try {
+    await axios.post('http://localhost:8000/api/povuci-prijavu', {
+      tip: tipRec.value,
+      ime: punoIme.value
+    })
+  } catch (e) { }
 }
 
 function zavrsiIzlaganje() {
-  odobreno.value = false
-  prijavljen.value = false
-  vreme.value = 120
+  povuciPrijavu()
 }
 
 function resetujSve() {
@@ -92,7 +106,7 @@ function resetujSve() {
   istekloVreme.value = false
 }
 
-// --- Simulacija odobrenja predsedavajućeg i timer ---
+// Ostalo: timer i ostale funkcije ostaju kao kod tebe...
 let interval = null
 watch(prijavljen, (val) => {
   if (val) {
@@ -124,6 +138,7 @@ function startTimer() {
       odobreno.value = false
       prijavljen.value = false
       istekloVreme.value = true
+      povuciPrijavu()
     }
   }, 1000)
 }

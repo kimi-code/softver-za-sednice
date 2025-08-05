@@ -3,7 +3,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import { IonicVue, IonApp, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue'
+import { IonicVue, 
+  IonApp, IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
+  IonButton, IonItem, IonInput, IonText, IonAvatar, IonIcon, IonSpinner
+} from '@ionic/vue'
 
 // Core CSS required for Ionic components to work properly
 import '@ionic/vue/css/core.css'
@@ -21,6 +24,7 @@ import '@ionic/vue/css/text-transformation.css'
 import '@ionic/vue/css/flex-utils.css'
 import '@ionic/vue/css/display.css'
 
+// Tamna paleta (opciono, možeš obrisati ako ti ne treba)
 import '@ionic/vue/css/palettes/dark.system.css'
 
 import './theme/variables.css'
@@ -29,14 +33,20 @@ const app = createApp(App)
   .use(IonicVue)
   .use(router)
 
-// >>> OVDE REGISTRUJEMO SVE IONIC KOMPONENTE GLOBALNO <<<
+// Registruj sve Ionic komponente koje koristiš
 app.component('IonApp', IonApp)
 app.component('IonPage', IonPage)
 app.component('IonHeader', IonHeader)
 app.component('IonToolbar', IonToolbar)
 app.component('IonTitle', IonTitle)
 app.component('IonContent', IonContent)
-// <<< KRAJ REGISTRACIJE >>>
+app.component('IonButton', IonButton)
+app.component('IonItem', IonItem)
+app.component('IonInput', IonInput)
+app.component('IonText', IonText)
+app.component('IonAvatar', IonAvatar)
+app.component('IonIcon', IonIcon)
+app.component('IonSpinner', IonSpinner)
 
 router.isReady().then(() => {
   app.mount('#app')

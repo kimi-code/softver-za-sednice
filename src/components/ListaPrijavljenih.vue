@@ -32,22 +32,35 @@
 </template>
 
 <script setup>
-// Ovde kasnije povlačiš podatke sa backend-a.
-// Za sada dummy podaci (možeš menjati imena):
-const listaTacka = [
-  "Jelena Marković",
-  "Marko Stevanović"
-]
-const listaPoslovnik = [
-  "Aleksandar Petković"
-]
-const listaReplika = [
-  "Ivana Ilić"
-]
-const listaAmandman = [
-  "Dragan Ristić"
-]
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const listaTacka = ref([])
+const listaPoslovnik = ref([])
+const listaReplika = ref([])
+const listaAmandman = ref([])
+
+const ucitajPrijavljene = async () => {
+  try {
+    const res = await axios.get('http://localhost:8000/api/prijavljeni')
+    listaTacka.value = res.data.tacka
+    listaPoslovnik.value = res.data.poslovnik
+    listaReplika.value = res.data.replika
+    listaAmandman.value = res.data.amandman
+  } catch (e) {
+    listaTacka.value = []
+    listaPoslovnik.value = []
+    listaReplika.value = []
+    listaAmandman.value = []
+  }
+}
+
+onMounted(() => {
+  ucitajPrijavljene()
+  setInterval(ucitajPrijavljene, 4000)
+})
 </script>
+
 
 <style scoped>
 .prijavljeni-outer {

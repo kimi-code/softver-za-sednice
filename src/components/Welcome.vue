@@ -11,7 +11,15 @@
 
 <script setup>
 import { ref } from 'vue'
-const imeKorisnika = "Marko Marković"
+
+let imeKorisnika = "Nepoznat korisnik"
+try {
+  const info = JSON.parse(localStorage.getItem('odbornik_info'))
+  if (info && info.ime && info.prezime) {
+    imeKorisnika = `${info.ime} ${info.prezime}`
+  }
+} catch (e) {}
+
 const datum = new Date().toLocaleDateString('sr-RS', { day: '2-digit', month: '2-digit', year: 'numeric' })
 const vreme = ref(new Date().toLocaleTimeString('sr-RS', { hour: '2-digit', minute: '2-digit', second: '2-digit' }))
 setInterval(() => {
